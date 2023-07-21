@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <style>
+      *{
+    margin: 0;
+    padding: 0;
+}
+.container{
+    width: 100vw;
+    height: 100vh;
+}
+.Sudoku{
+    margin: 15vh auto;
+    width: 60%;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+}
+.row{
+    display: flex;
+}
+.input{
+    width: 6%;
+    height: 5vh;
+    margin: 1px;
+    font-size: 1.4rem;
+    text-align: center;
+    outline: none;
+    border: 0;
+    border: 1px solid rgba(0, 0, 0, 0.226);
+}
+.button{
+    margin: 20px 10px;
+    height: 37px;
+    font-style: italic;
+    width: 100px;
+    border-radius: 10px;
+    background-color: silver;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+@media (max-width: 700px) {
+    .Sudoku{
+        width: 90%;
+    }
+    .input{
+        width: 11%;
+    }
+}
+
+.bt{
+    border-top: 1px solid black;
+}
+.bb{
+    border-bottom: 1px solid black;
+}
+.bl{
+    border-left: 1px solid black;
+}
+.br{
+    border-right: 1px solid black;
+}
+    </style>
+    <title>SUDOKU SOLVER</title>
+</head>
+<body>
+    <div class="container">
+        <div class="Sudoku">
+            <div class="row">
+                <input type="number" class="input bt bl">
+                <input type="number" class="input bt">
+                <input type="number" class="input bt br">
+                <input type="number" class="input bt bl">
+                <input type="number" class="input bt">
+                <input type="number" class="input bt br">
+                <input type="number" class="input bt bl">
+                <input type="number" class="input bt">
+                <input type="number" class="input bt br">
+            </div>
+            <div class="row">
+                <input type="number" class="input bl">
+                <input type="number" class="input">
+                <input type="number" class="input br">
+                <input type="number" class="input bl">
+                <input type="number" class="input">
+                <input type="number" class="input br">
+                <input type="number" class="input bl">
+                <input type="number" class="input">
+                <input type="number" class="input br">
+            </div>
+            <div class="row">
+                <input type="number" class="input bb bl">
+                <input type="number" class="input bb">
+                <input type="number" class="input bb br">
+                <input type="number" class="input bb bl">
+                <input type="number" class="input bb">
+                <input type="number" class="input bb br">
+                <input type="number" class="input bb bl">
+                <input type="number" class="input bb">
+                <input type="number" class="input bb br">
+            </div>
+            <div class="row">
+                <input type="number" class="input bt bl">
+                <input type="number" class="input bt">
+                <input type="number" class="input bt br">
+                <input type="number" class="input bt bl">
+                <input type="number" class="input bt">
+                <input type="number" class="input bt br">
+                <input type="number" class="input bt bl">
+                <input type="number" class="input bt">
+                <input type="number" class="input bt br">
+            </div>
+            <div class="row">
+                <input type="number" class="input bl">
+                <input type="number" class="input">
+                <input type="number" class="input br">
+                <input type="number" class="input bl">
+                <input type="number" class="input">
+                <input type="number" class="input br">
+                <input type="number" class="input bl">
+                <input type="number" class="input">
+                <input type="number" class="input br">
+            </div>
+            <div class="row">
+                <input type="number" class="input bb bl">
+                <input type="number" class="input bb">
+                <input type="number" class="input bb br">
+                <input type="number" class="input bb bl">
+                <input type="number" class="input bb">
+                <input type="number" class="input bb br">
+                <input type="number" class="input bb bl">
+                <input type="number" class="input bb">
+                <input type="number" class="input bb br">
+            </div>
+            <div class="row">
+                <input type="number" class="input bt bl">
+                <input type="number" class="input bt">
+                <input type="number" class="input bt br">
+                <input type="number" class="input bt bl">
+                <input type="number" class="input bt">
+                <input type="number" class="input bt br">
+                <input type="number" class="input bt bl">
+                <input type="number" class="input bt">
+                <input type="number" class="input bt br">
+            </div>
+            <div class="row">
+                <input type="number" class="input bl">
+                <input type="number" class="input">
+                <input type="number" class="input br">
+                <input type="number" class="input bl">
+                <input type="number" class="input">
+                <input type="number" class="input br">
+                <input type="number" class="input bl">
+                <input type="number" class="input">
+                <input type="number" class="input br">
+            </div>
+            <div class="row">
+                <input type="number" class="input bb bl">
+                <input type="number" class="input bb">
+                <input type="number" class="input bb br">
+                <input type="number" class="input bb bl">
+                <input type="number" class="input bb">
+                <input type="number" class="input bb br">
+                <input type="number" class="input bb bl">
+                <input type="number" class="input bb">
+                <input type="number" class="input bb br">
+            </div>
+            <div class="nav">
+                <button id="solve" class="button">Solve</button>
+                <button id="reset" class="button">Reset</button>
+            </div>
+        </div>
+    </div>
+    <script>
+  function readGrid() {
+  let inputs = document.getElementsByTagName("input");
+  let rows = 9, cols = 9;
+  let gridArray = [];
+  for (let i = 0; i < rows; i++) {
+    let rowArray = [];
+    for (let j = 0; j < cols; j++) {
+      let inputValue = 0
+      inputValue = parseInt(inputs[i * cols + j].value);
+      rowArray.push(inputValue);
+    }
+    gridArray.push(rowArray);
+  }
+  solveSudoku(gridArray)
+  printGrid(gridArray)
+}
+function solveSudoku(board) {
+  const size = 9;
+  const boxSize = 3;
+
+  function isSafe(row, col, num) {
+    for (let d = 0; d < size; d++) {
+      if (board[row][d] === num) return false;
+    }
+    for (let r = 0; r < size; r++) {
+      if (board[r][col] === num) return false;
+    }
+    const boxRow = Math.floor(row / boxSize) * boxSize;
+    const boxCol = Math.floor(col / boxSize) * boxSize;
+    for (let r = 0; r < boxSize; r++) {
+      for (let c = 0; c < boxSize; c++) {
+        if (board[boxRow + r][boxCol + c] === num) return false;
+      }
+    }
+    return true;
+  }
+  function solve() {
+    for (let row = 0; row < size; row++) {
+      for (let col = 0; col < size; col++) {
+        if (board[row][col] === 0) {
+          for (let num = 1; num <= size; num++) {
+            if (isSafe(row, col, num)) {
+              board[row][col] = num;
+              if (solve()) return true;
+               else board[row][col] = 0;
+            }
+          }
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
+  if (solve()) return board;
+   else return "No solution exists.";
+}
+
+function printGrid(gridArray) {
+  let cnt = 0
+  for(let i=0; i<9; i++) {
+    let String = "";
+    for(let j=0; j<9; j++) {
+      document.getElementsByTagName('input')[cnt].value = gridArray[i][j]
+      cnt++
+      String += gridArray[i][j]
+    }
+    console.log(String)
+  }
+}
+
+document.getElementById('reset').addEventListener('click',()=>{
+  location.reload()
+})
+document.getElementById('solve').addEventListener('click',()=>{
+  console.log("readgrid")
+  readGrid()
+})
+
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

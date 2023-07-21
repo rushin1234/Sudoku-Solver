@@ -1,0 +1,60 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.container{
+    width: 100vw;
+    height: 100vh;
+}
+.Sudoku{
+    margin: 15vh auto;
+    width: 60%;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+}
+.row{
+    display: flex;
+}
+.input{
+    width: 6%;
+    height: 5vh;
+    margin: 1px;
+    font-size: 1.4rem;
+    text-align: center;
+    outline: none;
+    border: 0;
+    border: 1px solid rgba(0, 0, 0, 0.226);
+}
+.button{
+    margin: 20px 10px;
+    height: 37px;
+    font-style: italic;
+    width: 100px;
+    border-radius: 10px;
+    background-color: silver;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+@media (max-width: 700px) {
+    .Sudoku{
+        width: 90%;
+    }
+    .input{
+        width: 11%;
+    }
+}
+
+.bt{
+    border-top: 1px solid black;
+}
+.bb{
+    border-bottom: 1px solid black;
+}
+.bl{
+    border-left: 1px solid black;
+}
+.br{
+    border-right: 1px solid black;
+}
